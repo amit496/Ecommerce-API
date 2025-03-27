@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "488e01cf-fe8b-4fe2-a739-d2f14122e4c5",
+		"name": "E-Comm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33630836",
+		"_collection_link": "https://gold-water-221171.postman.co/workspace/ecommerce_api~2409c141-09fc-4fca-a23c-66d022e786c9/collection/33630836-488e01cf-fe8b-4fe2-a739-d2f14122e4c5?action=share&source=collection_link&creator=33630836"
+	},
+	"item": [
+		{
+			"name": "Add Product Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Noise Newly Launched Airwave Max 5 Wireless Over-Ear Headphones with Adaptive Hybrid ANC (up to 50dB), HFA Tech, 80H Playtime, Dual Pairing(Calm White)",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "<ul class=\"a-unordered-list a-vertical a-spacing-mini\">  <li class=\"a-spacing-mini\"><span class=\"a-list-item\"> Premium Sound Quality: High Fidelity Acoustics powered by a 40mm driver, delivering crisp, well-balanced, and immersive audio.  </span></li>  <li class=\"a-spacing-mini\"><span class=\"a-list-item\"> Adaptive Hybrid ANC: Intelligent noise cancellation up to 50dB, ensuring a truly distraction-free experience wherever you go.  </span></li>  <li class=\"a-spacing-mini\"><span class=\"a-list-item\"> Premium Design: Ergonomically crafted for comfort, featuring a sleek and stunning premium finish.  </span></li>  <li class=\"a-spacing-mini\"><span class=\"a-list-item\"> Extended Playtime: Up to 80 hours of continuous playtime, so you can keep the music going without interruption.  </span></li>  <li class=\"a-spacing-mini\"><span class=\"a-list-item\"> Ultra-Low Latency: Enjoy lag-free audio with an ultra-low latency of just 30ms for seamless sound.  </span></li>  <li class=\"a-spacing-mini\"><span class=\"a-list-item\"> Spatial Audio: 3D audio technology that creates a surround sound experience for a more immersive listening journey.  </span></li>  </ul>",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "5049",
+							"type": "text"
+						},
+						{
+							"key": "stock_quantity",
+							"value": "40",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": [
+								"postman-cloud:///1f00b302-3e2d-4790-95b2-c43e4198b2da",
+								"postman-cloud:///1f00b302-3b3b-4140-9814-4c1e3b6fae03",
+								"postman-cloud:///1f00b302-3f99-43e0-b27f-2dfdc7322e0b",
+								"postman-cloud:///1f00b302-3e9b-4560-b48d-6288daceb816",
+								"postman-cloud:///1f00b302-3b8e-4160-9fef-2e44aadbb4c7"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/product/store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"product",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/product/index",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"product",
+						"index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Noise Newly Launched Airwave Max 5 Wireless Over-Ear Headphones with Adaptive Hybrid ANC (up to 50dB), HFA Tech, 80H Playtime, Dual Pairing(Calm White)",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Playback- It provides a massive battery backup of upto 15 hours for a superior playback time.",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "5049",
+							"type": "text"
+						},
+						{
+							"key": "stock_quantity",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": [
+								"postman-cloud:///1f00b30e-a704-4f50-88dc-d713be26f023",
+								"postman-cloud:///1f00b30e-b33c-4660-b7b8-bbc5f2906dde",
+								"postman-cloud:///1f00b30e-a884-4420-abb7-99fd437c86a4",
+								"postman-cloud:///1f00b30e-b1b5-4c60-9e0d-a59a88c4b4c0",
+								"postman-cloud:///1f00b30e-b0f9-4c90-9f66-5d9d4734c3a2",
+								"postman-cloud:///1f00b30e-b7a6-4c50-8d50-e2356d1fa44b",
+								"postman-cloud:///1f00b30e-bb99-4830-ab73-caaea51077a9",
+								"postman-cloud:///1f00b30e-ba79-46d0-b319-40deb093f8a6"
+							]
+						},
+						{
+							"key": "id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/product/update",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"product",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Destroy Product Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Product one",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Product oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct oneProduct one",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "34.45",
+							"type": "text"
+						},
+						{
+							"key": "stock_quantity",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": [
+								"postman-cloud:///1f0099a2-90ae-49c0-85f4-2dd73ddc5dbb",
+								"postman-cloud:///1f0099a1-8a16-47d0-a731-2a111bfb9f20"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/product/destroy?id=3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"product",
+						"destroy"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Status",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/product/status?id=2&status=0",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"product",
+						"status"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						},
+						{
+							"key": "status",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
