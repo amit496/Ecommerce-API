@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductImage;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -15,15 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $product = Product::with(['images' => function($query) {
+            $query->select('id', 'product_id', 'path');
+        }])->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($product, 200);
+
     }
 
     /**
@@ -31,16 +29,16 @@ class ProductController extends Controller
      */
     public function Store(ProductRequest $request)
     {
-        dd($request->all());
 
         $product = Product::create([
-            'sku' => SKU_GENERATOR($request->name),
+            'sku' => SKU_GENERATOR($request->name) ?? 123,
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'stock_quantity' => $request->stock_quantity,
-            'is_active' => true,
+            'status' => true,
         ]);
+
 
         $imagePaths = upload_product_images($product, $request->file('images'));
 
@@ -52,34 +50,85 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request)
     {
-        //
+
+        $product = Product::find($request->id);
+
+        if (!$product) {
+            return response()->json([
+                'message' => 'Product not found',
+            ], 404);
+        }else{
+            $product->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'stock_quantity' => $request->stock_quantity,
+            ]);
+            $imagePaths = [];
+            if ($request->hasFile('images')) {
+                $imagePaths = upload_product_images($product, $request->file('images'));
+            }
+
+            return response()->json([
+                'message' => 'Product updated successfully',
+                'product' => $product,
+                'images' => $imagePaths,
+            ], 200);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(request $request)
     {
-        //
+        $product = Product::find($request->id);
+
+        if (!$product) {
+            return response()->json([
+                'message' => 'Product not found',
+            ], 404);
+        }
+
+        foreach ($product->images as $image) {
+            if (Storage::disk('public')->exists($image->path)) {
+                Storage::disk('public')->delete($image->path);
+            }
+            $image->delete();
+        }
+
+        $product->delete();
+
+        return response()->json([
+            'message' => 'Product deleted successfully',
+        ], 200);
     }
+
+    /**
+     * Update status in the product.
+     */
+    public function Status(Request $request)
+    {
+        $product = Product::find($request->id);
+
+        if (!$product) {
+            return response()->json([
+                'message' => 'Product not found',
+            ], 404);
+        }
+
+        $product->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json([
+            'message' => 'Product status updated successfully',
+            'product' => $product,
+        ], 200);
+    }
+
 }

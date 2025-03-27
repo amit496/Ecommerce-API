@@ -11,7 +11,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Change as needed for authorization checks
     }
 
     /**
@@ -22,25 +22,41 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sku' => 'required|string|max:255|unique:products',
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'stock_quantity' => 'required|integer',
+            'sku' => 'unique:products,sku', // Fixed the incomplete rule
+            'name' => 'required|string|max:350',
+            'description' => 'nullable|string|min:50|max:3000',
+            'price' => 'required|numeric|gt:0',
+            'stock_quantity' => 'required|integer|gt:0',
             'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ];
     }
 
+    /**
+     * Get the custom messages for validation errors.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
-            'sku.required' => 'The SKU is required.',
             'sku.unique' => 'The SKU must be unique.',
             'name.required' => 'The product name is required.',
+            'name.string' => 'The product name must be a valid string.',
+            'name.max' => 'The product name cannot exceed 255 characters.',
+            'description.min' => 'The product description must be at least 50 characters.',
+            'description.max' => 'The product description cannot exceed 1000 characters.',
             'price.required' => 'The product price is required.',
+            'price.numeric' => 'The price must be a valid number.',
+            'price.gt' => 'The price must be greater than 0.',
+            'stock_quantity.required' => 'The stock quantity is required.',
+            'stock_quantity.integer' => 'The stock quantity must be a valid integer.',
+            'stock_quantity.gt' => 'The stock quantity must be greater than 0.',
             'images.required' => 'At least one image is required.',
-            'images.*.image' => 'Each uploaded file must be an image.',
+            'images.array' => 'The images field must be an array.',
+            'images.*.image' => 'Each uploaded file must be a valid image.',
+            'images.*.mimes' => 'The images must be of type jpeg, png, jpg, gif, or svg.',
+            'images.*.max' => 'Each image cannot exceed 2MB in size.',
         ];
     }
 }

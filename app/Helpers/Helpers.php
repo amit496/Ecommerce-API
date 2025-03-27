@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 use App\Models\ProductImage;
 
 if (!function_exists('upload_product_images')) {
@@ -9,42 +8,41 @@ if (!function_exists('upload_product_images')) {
     {
         $imagePaths = [];
 
-        foreach ($images as $image) {
+        foreach ($product->images as $image) {
 
-            $img = Image::make($image);
+            if (Storage::disk('public')->exists($image->path)) {
+                Storage::disk('public')->delete($image->path);
+            }
 
-            $smallPath = 'products/images/small/' . $image->hashName();
-            $mediumPath = 'products/images/medium/' . $image->hashName();
-            $largePath = 'products/images/large/' . $image->hashName();
+            $image->delete();
+        }
 
-            $small = $img->resize(300, 300);
-            $medium = $img->resize(600, 600);
-            $large = $img->resize(1200, 1200);
+        if ($images && is_array($images)) {
+            foreach ($images as $image) {
 
-            $small->save(storage_path('app/public/' . $smallPath));
-            $medium->save(storage_path('app/public/' . $mediumPath));
-            $large->save(storage_path('app/public/' . $largePath));
+                $filename = $image->getClientOriginalName();
+                $path = $image->storeAs('products', uniqid() . '_' . $filename, 'public');
 
-            $productImage = new ProductImage();
-            $productImage->product_id = $product->id;
-            $productImage->path = $smallPath;
-            $productImage->save();
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'path' => $path
+                ]);
 
-            $imagePaths[] = [
-                'small' => $smallPath,
-                'medium' => $mediumPath,
-                'large' => $largePath
-            ];
+                $imagePaths[] = $path;
+            }
         }
 
         return $imagePaths;
     }
 }
 
+
 if (!function_exists('SKU_GENERATOR')) {
     function SKU_GENERATOR($product)
     {
-        $sku = strtoupper(substr($product->name, 0, 3)) . '-' . strtoupper(uniqid('SKU-'));
+        $randomNumber = rand(1000, 9999);
+        $sku = strtoupper('SKU-' . uniqid('') . '-' . $randomNumber);
         return $sku;
     }
 }
+

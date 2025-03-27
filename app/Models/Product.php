@@ -11,8 +11,8 @@ class Product extends Model
         'description',
         'price',
         'stock_quantity',
-        'image',
-        'is_active'
+        'is_active',
+        'sku'
     ];
 
     public function images()
